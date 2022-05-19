@@ -1,3 +1,4 @@
+import TodoCreate from "./components/Todo/TodoCreate";
 import TodoHead from "./components/Todo/TodoHead";
 import TodoList from "./components/Todo/TodoList";
 import TodoTemplate from "./components/Todo/TodoTemplate";
@@ -10,6 +11,7 @@ function App() {
       <TodoTemplate>
         <TodoHead />
         <TodoList />
+        <TodoCreate />
       </TodoTemplate>
     </>
   );
