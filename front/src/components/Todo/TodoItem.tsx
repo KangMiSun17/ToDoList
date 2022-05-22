@@ -5,12 +5,7 @@ import {
   Remove,
 } from "../styles/TodoItemStyle";
 import { MdDone, MdDelete } from "react-icons/md";
-
-interface Todo {
-  id: string;
-  done: boolean;
-  text: string;
-}
+import { Todo } from "../common/TodoType";
 
 function TodoItem({ id, done, text }: Todo) {
   return (
