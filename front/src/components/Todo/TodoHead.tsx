@@ -4,7 +4,7 @@ import { TodoHeadBlock } from "../styles/TodoStyle";
 function TodoHead() {
   const todos = useTodoContext();
   //끝나지 않은 할 일 필터링
-  const undoneTasks = todos.filter((todo) => !todo.done);
+  const undoneTasks = todos && todos.filter((todo) => !todo.done);
   const today = new Date();
   //00년 0월 0일
   const dateString = today.toLocaleDateString("ko-KR", {

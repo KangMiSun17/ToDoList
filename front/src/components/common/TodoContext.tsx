@@ -9,39 +9,25 @@ import React, {
 } from "react";
 import { Action, Todo } from "./TodoType";
 
-const initialTodos = [
-  {
-    id: 1,
-    text: "프로젝트 생성하기",
-    done: true,
-  },
-  {
-    id: 2,
-    text: "컴포넌트 스타일링하기",
-    done: true,
-  },
-  {
-    id: 3,
-    text: "Context 만들기",
-    done: false,
-  },
-  {
-    id: 4,
-    text: "기능 구현하기",
-    done: false,
-  },
-];
+const myStorage = localStorage.getItem("todoList");
+const initialTodos = JSON.parse(myStorage || "[]");
 
 function todoReducer(state: Todo[], action: Action) {
   switch (action.type) {
     case "CREATE":
+      localStorage.setItem("todoList", JSON.stringify([...state, action.todo]));
       return state.concat(action.todo);
     case "TOGGLE":
-      return state.map((todo) =>
+      const toggleState = state.map((todo) =>
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
       );
+      localStorage.setItem("todoList", JSON.stringify([...toggleState]));
+      return toggleState;
+
     case "REMOVE":
-      return state.filter((todo) => todo.id !== action.id);
+      const RemoveState = state.filter((todo) => todo.id !== action.id);
+      localStorage.setItem("todoList", JSON.stringify([...RemoveState]));
+      return RemoveState;
     default:
       throw new Error(`Unhandled action type`);
   }
@@ -53,7 +39,13 @@ const NextIdContext = createContext<MutableRefObject<number> | null>(null);
 
 export function TodoProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
-  const nextId = useRef(5);
+  const num: number[] = [];
+  initialTodos &&
+    initialTodos.map((todo: { id: number }) => {
+      num.push(todo.id);
+    });
+  const maxId = num.length ? Math.max(...num) : 0;
+  const nextId = useRef(maxId + 1);
   return (
     <TodoContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

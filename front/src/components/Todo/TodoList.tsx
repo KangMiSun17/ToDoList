@@ -6,14 +6,15 @@ function TodoList() {
   const todos = useTodoContext();
   return (
     <TodoListBlock>
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          id={todo.id}
-          text={todo.text}
-          done={todo.done}
-        />
-      ))}
+      {todos &&
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            text={todo.text}
+            done={todo.done}
+          />
+        ))}
     </TodoListBlock>
   );
 }

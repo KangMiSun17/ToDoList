@@ -33,6 +33,8 @@ function TodoCreate() {
     nextId.current += 1;
   };
 
+  console.log(JSON.parse(localStorage.getItem("todoList") || "[]"));
+
   return (
     <>
       {open && (

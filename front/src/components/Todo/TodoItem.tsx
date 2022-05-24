@@ -12,7 +12,9 @@ import { useDispatchContext } from "../common/TodoContext";
 function TodoItem({ id, done, text }: Todo) {
   const dispatch = useDispatchContext();
   const onToggle = () => dispatch({ type: "TOGGLE", id });
-  const onRemove = () => dispatch({ type: "REMOVE", id });
+  const onRemove = () => {
+    dispatch({ type: "REMOVE", id });
+  };
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={onToggle}>
