@@ -1,11 +1,19 @@
+import { useTodoContext } from "../common/TodoContext";
 import { TodoListBlock } from "../styles/TodoStyle";
 import TodoItem from "./TodoItem";
 
 function TodoList() {
+  const todos = useTodoContext();
   return (
     <TodoListBlock>
-      <TodoItem id={1} text="투두리스트 만들기" done={false}></TodoItem>
-      <TodoItem id={2} text="타입스크립트 정복하기" done={true}></TodoItem>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          done={todo.done}
+        />
+      ))}
     </TodoListBlock>
   );
 }
