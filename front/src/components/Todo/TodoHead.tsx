@@ -1,8 +1,9 @@
-import { useTodoContext } from "../common/TodoContext";
+import { useRecoilValue } from "recoil";
+import { todosState } from "../../recoil/todo";
 import { TodoHeadBlock } from "../styles/TodoStyle";
 
 function TodoHead() {
-  const todos = useTodoContext();
+  const todos = useRecoilValue(todosState);
   //끝나지 않은 할 일 필터링
   const undoneTasks = todos && todos.filter((todo) => !todo.done);
   const today = new Date();

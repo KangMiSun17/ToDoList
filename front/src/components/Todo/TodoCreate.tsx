@@ -1,6 +1,8 @@
 import React, { SetStateAction, useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { useDispatchContext, useNextIdContext } from "../common/TodoContext";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { todosState } from "../../recoil/todo";
+import { Todo } from "../common/TodoType";
 import {
   InsertFormPositioner,
   InsertForm,
@@ -12,25 +14,25 @@ function TodoCreate() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const dispatch = useDispatchContext();
-  const nextId = useNextIdContext();
+  const todos = useRecoilValue<Todo[]>(todosState);
+  const setTodos = useSetRecoilState<Todo[]>(todosState);
+
+  // useRecoilValue = get 변수
+  // useSetRecoilState = setter 지정
+  // 위와 같은형식으로 get과 setter를 분리하여 사용하는 방법도 있다.
 
   const onToggle = () => setOpen(!open);
   const onChange = (e: { target: { value: SetStateAction<string> } }) =>
     setValue(e.target.value);
+
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    dispatch({
-      type: "CREATE",
-      todo: {
-        id: nextId.current,
-        text: value,
-        done: false,
-      },
-    });
+    const nextId: number = todos ? todos[todos.length - 1].id + 1 : 0;
+    const todo: Todo = { id: nextId, text: value, done: false };
+    localStorage.setItem("todoList", JSON.stringify([...todos, todo]));
+    setTodos([...todos, todo]);
     setValue("");
     setOpen(false);
-    nextId.current += 1;
   };
 
   return (
