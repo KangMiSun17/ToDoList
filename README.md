@@ -6,6 +6,8 @@ TypeScript를 이용해서 TodoList 만들기
 
 TypeScript를 공부하는데 이론만 공부하니 감이 잡히지 않아서 뭔가를 만들어보자! 하고 저번에 만들다 localStorage 연결에 실패한 TodoList를 도전해보았다.
 
+추가 : recoil을 사용해 전역변수를 상태관리했다.
+
 # 기능
 
 - 오늘 날짜와 요일 보여주고 남은 할 일 개수 확인

@@ -49,5 +49,4 @@ function TodoItem({ id, done, text, todos, setTodos }: PropTypes) {
   );
 }
 
-//불필요한 리렌더링 방지
-export default React.memo(TodoItem);
+export default TodoItem;
